@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="greet.js"></script>
+    <script src="shift.js"></script>
+  </head>
+
+  <style>
+    .container {
+      padding: 1em;
+      background-color: rgb(180, 23, 23);
+      margin: 10px;
+      color: white;
+      margin-bottom: 10px;
+      display: flex;
+    }
+    .vouchers {
+        display: flex;
+    }
+
+    .airtimebill {
+      margin: 10px;
+      padding: 1em;
+      flex: 1;
+    }
+    .transportfee {
+      margin: 10px;
+      padding: 1em;
+      flex: 1;
+    }
+    .greet {
+      margin: 10px;
+      padding: 1em;
+      flex: 1;
+    }
+    .expensive {
+      margin: 10px;
+      padding: 1em;
+      flex: 1;
+    }
+  </style>
+  <body>
+    <div
+      class="container"
+      x-data="{
+        smstotal:0,
+        calltotal:0.00,
+        balance:0.00,
+        recharge:0,
+        remaining:0,
+        sms:0,
+        call:0,
+        morning:0,
+        afternoon:0,
+        nightshift: 0,
+        name: '',
+        message: '',
+        showGreeting: false,
+        greetMe() {
+        this.message = greet(this.name);
+        },
+        transportFee() {
+            this.fee = transportFee(this.shift)
+        }
+    }"
+    >
+      <!-- Airtime -->
+      <div class="airtimebill">
+        <h4>Airtime Balane</h4>
+        <h5>
+          Remaining Balance:R
+          <span x-text="balance - (smstotal + calltotal)"> </span>
+        </h5>
+        <h5>SMS Bill:R <span x-text="smstotal">SMS Bill</span></h5>
+        <h5>SMS Bill:R <span x-text="calltotal"> Phone Call bill</span></h5>
+        <button x-on:click="smstotal += 0.99">Send SMS</button>
+        <button x-on:click="calltotal += 2.49">Make a Call</button>
+        <br />
+       
+        <h5>Recharge Voucher Balance:R <span x-text="balance"></span></h5>
+        
+        <span class="vouchers">
+        
+            <button x-on:click="balance += 29.00">R 29.00</button>
+            <button x-on:click="balance += 55.00">R 55.00</button>
+            <button x-on:click="balance += 100.00">R 100.00</button>
+        </span>
+       
+        
+      </div>
+      <!-- Which Shift -->
+      <div class="transportfee"  >
+        
+      </div>
+      <!-- Greetings -->
+      <div class="greet">
+        <h4>Greetings</h4>
+        <div x-text="message" class="message">You will be greeted here</div>
+
+        <input
+          x-model="name"
+          id="name"
+          type="text"
+          placeholder="please enter your name"
+        />
+        <button x-on:click="greetMe">Greet!</button>
+      </div>
+      <!-- Expensive items -->
+      <div class="expensive">
+        <h4>Most expensive Item</h4>
+        <div x-text="message" class="message">You will be greeted here</div>
+
+        <input
+          x-model="name"
+          id="name"
+          type="text"
+          placeholder="please enter your name"
+        />
+        <button x-on:click="greetMe">Greet!</button>
+      </div>
+    </div>
+  </body>
+</html>
